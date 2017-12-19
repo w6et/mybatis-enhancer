@@ -33,7 +33,7 @@ public class MySqlHelper extends SqlHelper {
     }
     
     public static String sqlRestraint() {
-        String sqlRestraint = "<sql id=\"sql_restraint\"><if test=\"groupBy != null\">group by ${groupBy}</if><if test=\"orderBy != null\">order by ${orderBy}</if><choose><when test=\"limit != null and limit gt 0 \">limit<choose><when test=\"offset != null and offset gt 0 \">#{offset},#{limit}</when><otherwise>0,#{limit}</otherwise></choose></when><otherwise>limit 0,100</otherwise></choose></sql>";
+        String sqlRestraint = "<sql id=\"sql_restraint\"><if test=\"groupBy != null\">group by ${groupBy}</if><if test=\"orderBy != null\">order by ${orderBy}</if><choose><when test=\"limit != null and limit gt 0 \">limit<choose><when test=\"offset != null and offset gt 0 \">#{offset},#{limit}</when><otherwise>0,#{limit}</otherwise></choose></when><otherwise>limit 0,500</otherwise></choose></sql>";
         return sqlRestraint;
     }
 
