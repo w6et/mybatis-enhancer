@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Just a test case. Not a real Velocity implementation.
@@ -37,7 +37,7 @@ public class LanguageTest {
 
   protected static SqlSessionFactory sqlSessionFactory;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/language/MapperConfig.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
@@ -106,7 +106,7 @@ public class LanguageTest {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 
       int[] ids = { 2, 4, 5 };
-      Map<String, Object> param = new HashMap<String, Object>();
+      Map<String, Object> param = new HashMap<>();
       param.put("ids", ids);
       List<Name> answer = sqlSession.selectList("selectNamesWithIteration", param);
       assertEquals(3, answer.size());
@@ -139,6 +139,7 @@ public class LanguageTest {
       }
     }
   }
+
   @Test
   public void testLangRawWithIncludeAndCData() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -150,7 +151,7 @@ public class LanguageTest {
       }
     }
   }
-  
+
   @Test
   public void testLangXmlTags() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {

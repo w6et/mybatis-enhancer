@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.apache.ibatis.jdbc;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +29,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.hsqldb.jdbc.JDBCConnection;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class PooledDataSourceTest extends BaseDataTest {
 
@@ -54,7 +54,7 @@ public class PooledDataSourceTest extends BaseDataTest {
       ds.setPoolPingQuery("SELECT * FROM PRODUCT");
       ds.setPoolTimeToWait(10000);
       ds.setLogWriter(null);
-      List<Connection> connections = new ArrayList<Connection>();
+      List<Connection> connections = new ArrayList<>();
       for (int i = 0; i < 3; i++) {
         connections.add(ds.getConnection());
       }
@@ -82,7 +82,7 @@ public class PooledDataSourceTest extends BaseDataTest {
     c.close();
     c.toString();
   }
-  
+
   @Test
   public void ShouldReturnRealConnection() throws Exception {
     PooledDataSource ds = createPooledDataSource(JPETSTORE_PROPERTIES);
@@ -91,7 +91,7 @@ public class PooledDataSourceTest extends BaseDataTest {
     c.close();
   }
 
-  @Ignore("See the comments")
+  @Disabled("See the comments")
   @Test
   public void shouldReconnectWhenServerKilledLeakedConnection() throws Exception {
     // See #748

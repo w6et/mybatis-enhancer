@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package org.apache.ibatis.submitted.sqlprovider;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Reader;
 import java.lang.reflect.Method;
@@ -39,14 +39,14 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class SqlProviderTest {
 
   private static SqlSessionFactory sqlSessionFactory;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     // create a SqlSessionFactory
     try (Reader reader = Resources
@@ -65,7 +65,7 @@ public class SqlProviderTest {
   public void shouldGetTwoUsers() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
-      List<Integer> list = new ArrayList<Integer>();
+      List<Integer> list = new ArrayList<>();
       list.add(1);
       list.add(3);
       List<User> users = mapper.getUsers(list);
@@ -137,14 +137,14 @@ public class SqlProviderTest {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
       {
-        Map<String, Object> criteria = new HashMap<String, Object>();
+        Map<String, Object> criteria = new HashMap<>();
         criteria.put("id", 1);
         List<User> users = mapper.getUsersByCriteriaMap(criteria);
         assertEquals(1, users.size());
         assertEquals("User1", users.get(0).getName());
       }
       {
-        Map<String, Object> criteria = new HashMap<String, Object>();
+        Map<String, Object> criteria = new HashMap<>();
         criteria.put("name", "User");
         List<User> users = mapper.getUsersByCriteriaMap(criteria);
         assertEquals(4, users.size());
@@ -235,7 +235,7 @@ public class SqlProviderTest {
       }
     }
   }
-  
+
   @Test
   public void methodNotFound() throws NoSuchMethodException {
     try {

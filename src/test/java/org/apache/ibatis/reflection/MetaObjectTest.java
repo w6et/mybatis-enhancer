@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2015 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package org.apache.ibatis.reflection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +32,7 @@ import org.apache.ibatis.domain.blog.Section;
 import org.apache.ibatis.domain.misc.CustomBeanWrapper;
 import org.apache.ibatis.domain.misc.CustomBeanWrapperFactory;
 import org.apache.ibatis.domain.misc.RichType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MetaObjectTest {
 
@@ -208,7 +208,7 @@ public class MetaObjectTest {
 
   @Test
   public void shouldDemonstrateDeeplyNestedMapProperties() {
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = new HashMap<>();
     MetaObject metaMap = SystemMetaObject.forObject(map);
 
     assertTrue(metaMap.hasSetter("id"));
@@ -243,7 +243,7 @@ public class MetaObjectTest {
 
   @Test
   public void shouldDemonstrateNullValueInMap() {
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = new HashMap<>();
     MetaObject metaMap = SystemMetaObject.forObject(map);
     assertFalse(metaMap.hasGetter("phone.home"));
 
@@ -282,12 +282,12 @@ public class MetaObjectTest {
 
   @Test
   public void shouldMethodHasGetterReturnTrueWhenListElementSet() {
-    List<Object> param1 = new ArrayList<Object>();
+    List<Object> param1 = new ArrayList<>();
     param1.add("firstParam");
     param1.add(222);
     param1.add(new Date());
 
-    Map<String, Object> parametersEmulation = new HashMap<String, Object>();
+    Map<String, Object> parametersEmulation = new HashMap<>();
     parametersEmulation.put("param1", param1);
     parametersEmulation.put("filterParams", param1);
 

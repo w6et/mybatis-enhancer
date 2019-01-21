@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -104,7 +104,7 @@ public class ResultMap {
           }
         }
         final String property = resultMapping.getProperty();
-        if(property != null) {
+        if (property != null) {
           resultMap.mappedProperties.add(property);
         }
         if (resultMapping.getFlags().contains(ResultFlag.CONSTRUCTOR)) {
@@ -253,7 +253,7 @@ public class ResultMap {
   public void forceNestedResultMaps() {
     hasNestedResultMaps = true;
   }
-  
+
   public Boolean getAutoMapping() {
     return autoMapping;
   }

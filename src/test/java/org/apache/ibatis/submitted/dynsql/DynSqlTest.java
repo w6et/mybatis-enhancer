@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,16 +15,16 @@
  */
 package org.apache.ibatis.submitted.dynsql;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -37,7 +37,7 @@ public class DynSqlTest {
 
   protected static SqlSessionFactory sqlSessionFactory;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     try (Reader configReader = Resources.getResourceAsReader("org/apache/ibatis/submitted/dynsql/MapperConfig.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(configReader);
@@ -50,7 +50,7 @@ public class DynSqlTest {
   @Test
   public void testSelect() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      List<Integer> ids = new ArrayList<Integer>();
+      List<Integer> ids = new ArrayList<>();
       ids.add(1);
       ids.add(3);
       ids.add(5);
@@ -68,7 +68,7 @@ public class DynSqlTest {
   @Test
   public void testSelectSimple() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      List<Integer> ids = new ArrayList<Integer>();
+      List<Integer> ids = new ArrayList<>();
       ids.add(1);
       ids.add(3);
       ids.add(5);
@@ -90,8 +90,8 @@ public class DynSqlTest {
       List<Map<String, Object>> answer = sqlSession.selectList("org.apache.ibatis.submitted.dynsql.selectLike", "Ba");
 
       assertTrue(answer.size() == 2);
-      assertEquals(new Integer(4), answer.get(0).get("ID"));
-      assertEquals(new Integer(6), answer.get(1).get("ID"));
+      assertEquals(Integer.valueOf(4), answer.get(0).get("ID"));
+      assertEquals(Integer.valueOf(6), answer.get(1).get("ID"));
     }
   }
 
@@ -121,7 +121,7 @@ public class DynSqlTest {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       List<Map<String, Object>> answer = sqlSession.selectList("org.apache.ibatis.submitted.dynsql.ognlStaticMethodCall", "Rock 'n Roll");
       assertTrue(answer.size() == 1);
-      assertEquals(new Integer(7), answer.get(0).get("ID"));
+      assertEquals(Integer.valueOf(7), answer.get(0).get("ID"));
     }
   }
 

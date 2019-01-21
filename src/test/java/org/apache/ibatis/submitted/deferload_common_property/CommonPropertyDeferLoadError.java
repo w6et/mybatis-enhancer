@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.apache.ibatis.submitted.deferload_common_property;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -28,15 +28,15 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class CommonPropertyDeferLoadError {
 
     private static SqlSessionFactory sqlSessionFactory;
     private static SqlSessionFactory lazyLoadSqlSessionFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void initDatabase() throws Exception {
         try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/deferload_common_property/ibatisConfig.xml")) {
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
@@ -53,7 +53,7 @@ public class CommonPropertyDeferLoadError {
     public void testDeferLoadAfterResultHandler() {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             class MyResultHandler implements ResultHandler {
-                List<Child> children = new ArrayList<Child>();
+                List<Child> children = new ArrayList<>();
                 @Override
                 public void handleResult(ResultContext context) {
                     Child child = (Child)context.getResultObject();
@@ -86,7 +86,7 @@ public class CommonPropertyDeferLoadError {
     public void testDeferLoadAfterResultHandlerWithLazyLoad() {
         try (SqlSession sqlSession = lazyLoadSqlSessionFactory.openSession()) {
             class MyResultHandler implements ResultHandler {
-                List<Child> children = new ArrayList<Child>();
+                List<Child> children = new ArrayList<>();
                 @Override
                 public void handleResult(ResultContext context) {
                     Child child = (Child)context.getResultObject();

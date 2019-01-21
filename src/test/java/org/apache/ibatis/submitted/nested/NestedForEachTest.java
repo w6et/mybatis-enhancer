@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.apache.ibatis.submitted.nested;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.Reader;
 import java.util.HashMap;
@@ -27,14 +27,14 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class NestedForEachTest {
 
   protected static SqlSessionFactory sqlSessionFactory;
-  
-  @BeforeClass
+
+  @BeforeAll
   public static void setUp() throws Exception {
     try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/nested/MapperConfig.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
@@ -62,7 +62,7 @@ public class NestedForEachTest {
   @Test
   public void testSimpleSelectWithPrimitives() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      Map<String, Object> parameter = new HashMap<String, Object>();
+      Map<String, Object> parameter = new HashMap<>();
       int[] array = new int[] {1, 3, 5};
       parameter.put("ids", array);
 
@@ -81,7 +81,7 @@ public class NestedForEachTest {
       assertEquals(3, answer.size());
     }
   }
-  
+
   @Test
   public void testNestedSelect() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package org.apache.ibatis.submitted.dynsql2;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -28,15 +28,14 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class DynSqlTest {
 
   protected static SqlSessionFactory sqlSessionFactory;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/dynsql2/MapperConfig.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
@@ -49,7 +48,7 @@ public class DynSqlTest {
   @Test
   public void testDynamicSelectWithTypeHandler() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      List<Name> names = new ArrayList<Name>();
+      List<Name> names = new ArrayList<>();
 
       Name name = new Name();
       name.setFirstName("Fred");

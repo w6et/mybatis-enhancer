@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,15 +22,15 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class OgnlStaticTest {
 
   private static SqlSessionFactory sqlSessionFactory;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     // create a SqlSessionFactory
     try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/ognlstatic/mybatis-config.xml")) {
@@ -43,9 +43,9 @@ public class OgnlStaticTest {
   }
 
   /**
-   * This is the log output. 
+   * This is the log output.
    * DEBUG [main] - ooo Using Connection [org.hsqldb.jdbc.JDBCConnection@5ae1a5c7]
-   * DEBUG [main] - ==>  Preparing: SELECT * FROM users WHERE name IN (?) AND id = ? 
+   * DEBUG [main] - ==>  Preparing: SELECT * FROM users WHERE name IN (?) AND id = ?
    * DEBUG [main] - ==> Parameters: 1(Integer), 1(Integer)
    * There are two parameter mappings but DefaulParameterHandler maps them both to input paremeter (integer)
    */
@@ -54,8 +54,8 @@ public class OgnlStaticTest {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
       User user = mapper.getUserStatic(1);
-      Assert.assertNotNull(user);
-      Assert.assertEquals("User1", user.getName());
+      Assertions.assertNotNull(user);
+      Assertions.assertEquals("User1", user.getName());
     }
   }
 
@@ -64,8 +64,8 @@ public class OgnlStaticTest {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
       User user = mapper.getUserIfNode("User1");
-      Assert.assertEquals("User1", user.getName());
+      Assertions.assertEquals("User1", user.getName());
     }
   }
-  
+
 }

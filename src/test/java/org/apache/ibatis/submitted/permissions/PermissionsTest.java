@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,15 +23,15 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class PermissionsTest {
 
   private static SqlSessionFactory sqlSessionFactory;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     // create a SqlSessionFactory
     try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/permissions/mybatis-config.xml")) {
@@ -49,20 +49,20 @@ public class PermissionsTest {
       final PermissionsMapper mapper = sqlSession.getMapper(PermissionsMapper.class);
 
       final List<Resource> resources = mapper.getResources();
-      Assert.assertEquals(2, resources.size());
+      Assertions.assertEquals(2, resources.size());
 
       final Resource firstResource = resources.get(0);
       final List<Principal> principalPermissions = firstResource.getPrincipals();
-      Assert.assertEquals(1, principalPermissions.size());
-      
+      Assertions.assertEquals(1, principalPermissions.size());
+
       final Principal firstPrincipal = principalPermissions.get(0);
       final List<Permission> permissions = firstPrincipal.getPermissions();
-      Assert.assertEquals(2, permissions.size());
-      
+      Assertions.assertEquals(2, permissions.size());
+
       final Permission firstPermission = firstPrincipal.getPermissions().get(0);
-      Assert.assertSame(firstResource, firstPermission.getResource());
+      Assertions.assertSame(firstResource, firstPermission.getResource());
       final Permission secondPermission = firstPrincipal.getPermissions().get(1);
-      Assert.assertSame(firstResource, secondPermission.getResource());
+      Assertions.assertSame(firstResource, secondPermission.getResource());
     }
   }
 
@@ -72,28 +72,28 @@ public class PermissionsTest {
       final PermissionsMapper mapper = sqlSession.getMapper(PermissionsMapper.class);
 
       final List<Resource> resources = mapper.getResource("read");
-      Assert.assertEquals(1, resources.size());
+      Assertions.assertEquals(1, resources.size());
 
       final Resource firstResource = resources.get(0);
       final List<Principal> principalPermissions = firstResource.getPrincipals();
-      Assert.assertEquals(1, principalPermissions.size());
-      
+      Assertions.assertEquals(1, principalPermissions.size());
+
       final Principal firstPrincipal = principalPermissions.get(0);
       final List<Permission> permissions = firstPrincipal.getPermissions();
-      Assert.assertEquals(4, permissions.size());
+      Assertions.assertEquals(4, permissions.size());
 
       boolean readFound = false;
       for (Permission permission : permissions) {
         if ("read".equals(permission.getPermission())) {
-          Assert.assertSame(firstResource, permission.getResource());
+          Assertions.assertSame(firstResource, permission.getResource());
           readFound = true;
         }
       }
-      
+
       if (!readFound) {
-        Assert.fail();
+        Assertions.fail();
       }
     }
   }
-  
+
 }

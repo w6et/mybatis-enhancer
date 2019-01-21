@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,14 +22,14 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class CommonPropertyLazyLoadError {
-    
+
     private static SqlSessionFactory sqlSessionFactory;
-    
-    @BeforeClass
+
+    @BeforeAll
     public static void initDatabase() throws Exception {
         try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/lazyload_common_property/ibatisConfig.xml")) {
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
@@ -38,12 +38,12 @@ public class CommonPropertyLazyLoadError {
         BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
                 "org/apache/ibatis/submitted/lazyload_common_property/CreateDB.sql");
     }
-    
+
     @Test
     public void testLazyLoadWithNoAncestor() {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             ChildMapper childMapper = sqlSession.getMapper(ChildMapper.class);
-            
+
             childMapper.selectById(1);
         }
     }
@@ -52,7 +52,7 @@ public class CommonPropertyLazyLoadError {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             FatherMapper fatherMapper = sqlSession.getMapper(FatherMapper.class);
             ChildMapper childMapper = sqlSession.getMapper(ChildMapper.class);
-            
+
             fatherMapper.selectById(1);
             childMapper.selectById(1);
         }
@@ -63,7 +63,7 @@ public class CommonPropertyLazyLoadError {
             GrandFatherMapper grandFatherMapper = sqlSession.getMapper(GrandFatherMapper.class);
             FatherMapper fatherMapper = sqlSession.getMapper(FatherMapper.class);
             ChildMapper childMapper = sqlSession.getMapper(ChildMapper.class);
-            
+
             grandFatherMapper.selectById(1);
             fatherMapper.selectById(1);
             childMapper.selectById(1);
@@ -74,7 +74,7 @@ public class CommonPropertyLazyLoadError {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             GrandFatherMapper grandFatherMapper = sqlSession.getMapper(GrandFatherMapper.class);
             ChildMapper childMapper = sqlSession.getMapper(ChildMapper.class);
-            
+
             grandFatherMapper.selectById(1);
             childMapper.selectById(1);
         }
