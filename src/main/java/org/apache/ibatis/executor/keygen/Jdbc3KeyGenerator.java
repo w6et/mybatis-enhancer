@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -120,7 +120,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
     final TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
     final ResultSetMetaData rsmd = rs.getMetaData();
     // Wrap the parameter in Collection to normalize the logic.
-    Collection<?> paramAsCollection = null;
+    Collection<?> paramAsCollection;
     if (param instanceof Object[]) {
       paramAsCollection = Arrays.asList((Object[]) param);
     } else if (!(param instanceof Collection)) {

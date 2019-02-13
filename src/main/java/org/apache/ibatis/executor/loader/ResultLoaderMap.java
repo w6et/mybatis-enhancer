@@ -224,7 +224,7 @@ public class ResultLoaderMap {
         throw new ExecutorException("Cannot get Configuration as configuration factory was not set.");
       }
 
-      Object configurationObject = null;
+      Object configurationObject;
       try {
         final Method factoryMethod = this.configurationFactory.getDeclaredMethod(FACTORY_METHOD);
         if (!Modifier.isStatic(factoryMethod.getModifiers())) {
@@ -234,15 +234,12 @@ public class ResultLoaderMap {
         }
 
         if (!factoryMethod.isAccessible()) {
-          configurationObject = AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
-            @Override
-            public Object run() throws Exception {
-              try {
-                factoryMethod.setAccessible(true);
-                return factoryMethod.invoke(null);
-              } finally {
-                factoryMethod.setAccessible(false);
-              }
+          configurationObject = AccessController.doPrivileged((PrivilegedExceptionAction<Object>) () -> {
+            try {
+              factoryMethod.setAccessible(true);
+              return factoryMethod.invoke(null);
+            } finally {
+              factoryMethod.setAccessible(false);
             }
           });
         } else {
