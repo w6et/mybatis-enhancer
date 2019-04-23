@@ -95,7 +95,7 @@ public class DefaultVFS extends VFS {
              * then we assume the current resource is not a directory.
              */
             is = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
             List<String> lines = new ArrayList<>();
             for (String line; (line = reader.readLine()) != null;) {
               if (log.isDebugEnabled()) {
