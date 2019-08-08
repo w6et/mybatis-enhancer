@@ -298,12 +298,14 @@ class SqlProviderTest {
   }
 
   @Test
-  void notSqlProvider() {
+  @SuppressWarnings("deprecation")
+  void notSqlProvider() throws NoSuchMethodException {
+    Object testAnnotation = getClass().getDeclaredMethod("notSqlProvider").getAnnotation(Test.class);
     try {
-      new ProviderSqlSource(new Configuration(), new Object(), null, null);
+      new ProviderSqlSource(new Configuration(), testAnnotation);
       fail();
     } catch (BuilderException e) {
-      assertTrue(e.getMessage().contains("Error creating SqlSource for SqlProvider.  Cause: java.lang.NoSuchMethodException: java.lang.Object.type()"));
+      assertTrue(e.getMessage().contains("Error creating SqlSource for SqlProvider.  Cause: java.lang.NoSuchMethodException: org.junit.jupiter.api.Test.type()"));
     }
   }
 
@@ -385,6 +387,20 @@ class SqlProviderTest {
       fail();
     } catch (BuilderException e) {
       assertTrue(e.getMessage().contains("Error invoking SqlProvider method 'public java.lang.String org.apache.ibatis.submitted.sqlprovider.SqlProviderTest$ErrorSqlBuilder.invokeError()' with specify parameter 'class java.lang.Object'.  Cause: java.lang.UnsupportedOperationException: invokeError"));
+    }
+  }
+
+  @Test
+  void invokeNestedError() throws NoSuchMethodException {
+    try {
+      Class<?> mapperType = ErrorMapper.class;
+      Method mapperMethod = mapperType.getMethod("invokeNestedError");
+      new ProviderSqlSource(new Configuration(),
+        mapperMethod.getAnnotation(SelectProvider.class), mapperType, mapperMethod)
+        .getBoundSql(new Object());
+      fail();
+    } catch (BuilderException e) {
+      assertTrue(e.getMessage().contains("Error invoking SqlProvider method 'public java.lang.String org.apache.ibatis.submitted.sqlprovider.SqlProviderTest$ErrorSqlBuilder.invokeNestedError()' with specify parameter 'class java.lang.Object'.  Cause: java.lang.UnsupportedOperationException: invokeNestedError"));
     }
   }
 
@@ -648,6 +664,15 @@ class SqlProviderTest {
     }
   }
 
+  @Test
+  @SuppressWarnings("deprecation")
+  void keepBackwardCompatibilityOnDeprecatedConstructorWithAnnotation() throws NoSuchMethodException {
+    Class<?> mapperType = StaticMethodSqlProviderMapper.class;
+    Method mapperMethod = mapperType.getMethod("noArgument");
+    ProviderSqlSource sqlSource = new ProviderSqlSource(new Configuration(), (Object)mapperMethod.getAnnotation(SelectProvider.class), mapperType, mapperMethod);
+    assertEquals("SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS", sqlSource.getBoundSql(null).getSql());
+  }
+
   public interface ErrorMapper {
     @SelectProvider(type = ErrorSqlBuilder.class, method = "methodNotFound")
     void methodNotFound();
@@ -657,6 +682,9 @@ class SqlProviderTest {
 
     @SelectProvider(type = ErrorSqlBuilder.class, method = "invokeError")
     void invokeError();
+
+    @SelectProvider(type = ErrorSqlBuilder.class, method = "invokeNestedError")
+    void invokeNestedError();
 
     @SelectProvider(type = ErrorSqlBuilder.class, method = "multipleProviderContext")
     void multipleProviderContext();
@@ -688,6 +716,10 @@ class SqlProviderTest {
 
     public String invokeError() {
       throw new UnsupportedOperationException("invokeError");
+    }
+
+    public String invokeNestedError() {
+      throw new IllegalStateException(new UnsupportedOperationException("invokeNestedError"));
     }
 
     public String multipleProviderContext(ProviderContext providerContext1, ProviderContext providerContext2) {
