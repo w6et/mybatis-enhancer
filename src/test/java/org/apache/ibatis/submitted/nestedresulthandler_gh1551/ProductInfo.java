@@ -13,35 +13,36 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.ibatis.type;
+package org.apache.ibatis.submitted.nestedresulthandler_gh1551;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public class ProductInfo {
 
-/**
- * The annotation that specify alias name.
- *
- * <p><br>
- * <b>How to use:</b>
- * <pre>
- * &#064;Alias("Email")
- * public class UserEmail {
- *   // ...
- * }
- * </pre>
- * @author Clinton Begin
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Alias {
-  /**
-   * Return the alias name.
-   *
-   * @return the alias name
-   */
-  String value();
+  private Long id;
+  private String productId;
+  private String otherInfo;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getProductId() {
+    return productId;
+  }
+
+  public void setProductId(String productId) {
+    this.productId = productId;
+  }
+
+  public String getOtherInfo() {
+    return otherInfo;
+  }
+
+  public void setOtherInfo(String otherInfo) {
+    this.otherInfo = otherInfo;
+  }
+
 }
