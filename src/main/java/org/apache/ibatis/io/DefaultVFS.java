@@ -96,7 +96,7 @@ public class DefaultVFS extends VFS {
              */
             is = url.openStream();
             List<String> lines = new ArrayList<>();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"))) {
               for (String line; (line = reader.readLine()) != null;) {
                 if (log.isDebugEnabled()) {
                   log.debug("Reader entry: " + line);

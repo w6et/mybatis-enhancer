@@ -26,7 +26,7 @@
     <relativePath />
   </parent>
 
-  <artifactId>mybatis</artifactId>
+  <artifactId>mybatis-enhancer</artifactId>
   <version>3.5.4-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -145,7 +145,17 @@
   </properties>
 
   <dependencies>
-    <dependency>
+	<dependency>
+		<groupId>tk.mybatis</groupId>
+		<artifactId>mapper</artifactId>
+		<version>4.1.5</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.9</version>
+	</dependency>
+	<dependency>
       <groupId>ognl</groupId>
       <artifactId>ognl</artifactId>
       <version>3.2.11</version>
