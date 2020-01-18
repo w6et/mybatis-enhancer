@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  */
 public class ScriptRunner {
 
-  private static final String LINE_SEPARATOR = System.getProperty("line.separator", "\n");
+  private static final String LINE_SEPARATOR = System.lineSeparator();
 
   private static final String DEFAULT_DELIMITER = ";";
 
@@ -234,7 +234,7 @@ public class ScriptRunner {
       statement.setEscapeProcessing(escapeProcessing);
       String sql = command;
       if (removeCRs) {
-        sql = sql.replaceAll("\r\n", "\n");
+        sql = sql.replace("\r\n", "\n");
       }
       try {
         boolean hasResults = statement.execute(sql);
