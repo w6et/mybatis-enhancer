@@ -165,7 +165,7 @@
     <dependency>
       <groupId>org.javassist</groupId>
       <artifactId>javassist</artifactId>
-      <version>3.26.0-GA</version>
+      <version>3.27.0-GA</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
@@ -210,7 +210,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.6.0</version>
+      <version>5.6.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -234,7 +234,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
-      <version>3.3.0</version>
+      <version>3.3.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -247,7 +247,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.11</version>
+      <version>42.2.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
